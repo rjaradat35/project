@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List view -->
+    <record id="view_hospital_department_list" model="ir.ui.view">
+        <field name="name">hospital.department.list</field>
+        <field name="model">hospital.department</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="head_doctor_id"/>
+                <field name="doctor_count"/>
+                <field name="appointment_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_hospital_department_form" model="ir.ui.view">
+        <field name="name">hospital.department.form</field>
+        <field name="model">hospital.department</field>
+        <field name="arch" type="xml">
+            <form string="Department">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_doctors" type="object"
+                                class="oe_stat_button" icon="fa-user-md">
+                            <field name="doctor_count" widget="statinfo" string="Doctors"/>
+                        </button>
+                        <button name="action_view_appointments" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <field name="appointment_count" widget="statinfo" string="Appointments"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Cardiology"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" placeholder="e.g. CARD"/>
+                            <field name="head_doctor_id"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Doctors" name="doctors">
+                            <field name="doctor_ids">
+                                <list>
+                                    <field name="reference"/>
+                                    <field name="name"/>
+                                    <field name="specialization"/>
+                                    <field name="phone"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="What does this department do?"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- Challenge: chatter on every form view -->
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="view_hospital_department_search" model="ir.ui.view">
+        <field name="name">hospital.department.search</field>
+        <field name="model">hospital.department</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="head_doctor_id"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Head of Department" name="group_head"
+                            context="{'group_by': 'head_doctor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hospital_department" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">hospital.department</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first department
+            </p>
+            <p>Departments organize the doctors of your hospital.</p>
+        </field>
+    </record>
+</odoo>
