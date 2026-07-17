@@ -5,7 +5,6 @@
               name="Hospital"
               sequence="10"/>
 
-    <!-- First level -->
     <menuitem id="menu_hospital_appointments"
               name="Appointments"
               parent="menu_hospital_root"
@@ -24,15 +23,9 @@
               action="action_hospital_doctor"
               sequence="30"/>
 
-    <!-- Configuration submenu -->
-    <menuitem id="menu_hospital_configuration"
-              name="Configuration"
-              parent="menu_hospital_root"
-              sequence="100"/>
-
     <menuitem id="menu_hospital_departments"
               name="Departments"
-              parent="menu_hospital_configuration"
+              parent="menu_hospital_root"
               action="action_hospital_department"
-              sequence="10"/>
+              sequence="40"/>
 </odoo>
