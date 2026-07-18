@@ -10,7 +10,7 @@ Hospital Management
 * List and form views for each model, with a menu to reach them
 * Chatter (messages, followers, activities) on every form view
     """,
-    'author': 'Rakan Jaradat',
+    'author': 'Rami Jaradat',
     'license': 'LGPL-3',
     # 'mail' is required for the chatter (mail.thread / mail.activity.mixin)
     'depends': ['base', 'mail'],
